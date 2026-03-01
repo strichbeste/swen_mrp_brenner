@@ -1,6 +1,6 @@
 package mrp.model;
 
-// datenklasse fuer user
+// datenklasse für user
 public class User {
     public int id;
     public String username;

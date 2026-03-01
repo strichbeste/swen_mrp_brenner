@@ -3,7 +3,7 @@ package mrp.util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-// hilfsklasse fuer json
+// hilfsklasse für json serialisierung
 public class JsonUtil {
 
     public static final ObjectMapper mapper = new ObjectMapper();

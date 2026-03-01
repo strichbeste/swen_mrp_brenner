@@ -2,7 +2,7 @@ package mrp.model;
 
 import java.sql.Timestamp;
 
-// datenklasse fuer bewertung
+// datenklasse für bewertung
 public class Rating {
     public int id;
     public int mediaId;

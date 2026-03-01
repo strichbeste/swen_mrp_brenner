@@ -3,7 +3,7 @@ package mrp.util;
 import java.util.HashMap;
 import java.util.Map;
 
-// speichert aktive tokens im arbeitsspeicher (kein db noetig)
+// speichert aktive tokens im arbeitsspeicher (kein db nötig)
 public class TokenStore {
 
     // token -> username mapping
@@ -16,17 +16,17 @@ public class TokenStore {
         return token;
     }
 
-    // username aus token holen, null wenn ungueltig
+    // username aus token holen, null wenn ungültig
     public static String getUsernameFromToken(String token) {
         return tokens.get(token);
     }
 
-    // token ungueltig machen
+    // token ungültig machen
     public static void removeToken(String token) {
         tokens.remove(token);
     }
 
-    // pruefen ob token gueltig
+    // prüfen ob token gültig
     public static boolean isValid(String token) {
         return token != null && tokens.containsKey(token);
     }

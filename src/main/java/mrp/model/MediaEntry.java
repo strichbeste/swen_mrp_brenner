@@ -2,7 +2,7 @@ package mrp.model;
 
 import java.util.List;
 
-// datenklasse fuer media eintrag
+// datenklasse für media eintrag
 public class MediaEntry {
     public int id;
     public String title;
