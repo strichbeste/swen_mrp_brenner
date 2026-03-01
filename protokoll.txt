@@ -1,0 +1,77 @@
+Protokoll - Media Ratings Platform (MRP)
+SWEN1 - Wintersemester 2025/26
+Brenner | https://github.com/strichbeste/swen_mrp_brenner
+
+
+1. Architektur & technische Entscheidungen
+
+Das Projekt wurde in Java umgesetzt. Als HTTP-Server kommt HttpServer
+aus dem JDK (com.sun.net.httpserver) zum Einsatz - kein Framework wie
+Spring. Datenpersistenz erfolgt ueber PostgreSQL in Docker, Datenbankzugriffe
+mit JDBC und PreparedStatements (kein ORM).
+
+Die Anwendung ist in drei Schichten unterteilt: Handler (HTTP-Routing),
+Service (Business Logic) und Repository (Datenbankzugriff). Nach dem Login
+wird ein Token im Format username-mrpToken generiert und im Speicher
+gehalten. Jeder folgende Request wird auf dieses Token geprueft.
+
+
+2. Unit Tests
+
+Es wurden 20+ Unit Tests mit JUnit 5 implementiert. Getestet wurden:
+Registrierung/Login (z.B. doppelter Username), Rating-Logik (1 Rating
+pro User pro Media), Kommentarmoderation, Empfehlungslogik
+(Genre-Aehnlichkeit) und Durchschnittsberechnung.
+Datenbanknahe Klassen wurden bewusst nicht unit-getestet, da diese
+Integrationstests erfordern wuerden.
+
+
+
+3. SOLID-Prinzipien
+
+Single Responsibility Principle (SRP):
+Jede Klasse hat genau eine Aufgabe. Der UserRepository ist ausschliesslich
+fuer Datenbankoperationen zustaendig, der UserService nur fuer die
+Business-Logik.
+
+Open/Closed Principle (OCP):
+Neue Endpoints koennen hinzugefuegt werden ohne bestehenden Code zu aendern
+- jeder Handler implementiert ein gemeinsames Interface und wird zentral
+registriert.
+
+
+
+4. Probleme & Loesungen
+
+SQL-Injection wurde durch ausschliessliche Verwendung von PreparedStatements
+verhindert. Das Recommendation-System bereitete anfangs Schwierigkeiten
+bei der Genre-Aehnlichkeitsberechnung, wurde mit einem einfachen
+Genre-Overlap-Algorithmus geloest. Token-Validierung musste manuell
+implementiert werden, da kein Auth-Framework erlaubt war.
+
+
+5. Zeitaufwand
+
+Bereich                              Aufwand
+---------------------------------------------
+HTTP-Server Setup & Routing          6h
+Datenbankanbindung (PostgreSQL)      5h
+User-Verwaltung (Register, Login)    4h
+Media CRUD                           5h
+Rating-System & Kommentarmoderation  6h
+Favorites, Leaderboard, Profil       4h
+Recommendation-System                5h
+Suche & Filter                       3h
+Unit Tests (20+)                     4h
+Debugging & Postman Tests            3h
+---------------------------------------------
+Gesamt                               ~45h
+
+
+
+6. Lessons Learned
+
+Der groesste Lerneffekt lag in der manuellen Implementierung des
+HTTP-Servers ohne Framework - dadurch wurde das HTTP-Protokoll in der
+Praxis wirklich verstanden. Auch der direkte Umgang mit JDBC und SQL
+ohne ORM hat das Datenbankverstaendnis deutlich vertieft.
